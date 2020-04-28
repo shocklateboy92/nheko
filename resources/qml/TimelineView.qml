@@ -92,7 +92,7 @@ Page {
 
 		BusyIndicator {
 			anchors.centerIn: parent
-            running: timelineManager.isInitialSync || chat.model.paginationInProgress
+			running: timelineManager.isInitialSync
 			height: 200
 			width: 200
 			z: 3
@@ -100,6 +100,7 @@ Page {
 
 		ListView {
 			id: chat
+
 
 			visible: timelineManager.timeline != null
 
@@ -259,6 +260,26 @@ Page {
 				}
 			}
 
+		}
+
+		Rectangle {
+			id: paginationIndicator
+
+			anchors.top: parent.top
+			anchors.left: parent.left
+			anchors.right: parent.right
+			height: 1
+			color: colors.highlight
+			visible: chat.model && chat.model.paginationInProgress
+			z: 3
+
+			SequentialAnimation on opacity {
+				// Animations on properties start running by default
+				running: paginationIndicator.visible
+				loops: Animation.Infinite // The animation is set to loop indefinitely
+				NumberAnimation { from: 0; to: 1; duration: 500; easing.type: Easing.InOutQuad }
+				NumberAnimation { from: 1; to: 0; duration: 500; easing.type: Easing.InOutQuad }
+			}
 		}
 
 		Rectangle {
