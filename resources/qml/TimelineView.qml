@@ -266,19 +266,18 @@ Page {
 			id: paginationIndicator
 
 			anchors.top: parent.top
-			anchors.left: parent.left
-			anchors.right: parent.right
             height: 3
+            width: parent.width * 0.15
 			color: colors.highlight
 			visible: chat.model && chat.model.paginationInProgress
 			z: 3
 
-			SequentialAnimation on opacity {
-				// Animations on properties start running by default
+            SequentialAnimation on x {
+                // Animations on properties start running by default and parent.width won't be set by then
 				running: paginationIndicator.visible
 				loops: Animation.Infinite // The animation is set to loop indefinitely
-				NumberAnimation { from: 0; to: 1; duration: 500; easing.type: Easing.InOutQuad }
-				NumberAnimation { from: 1; to: 0; duration: 500; easing.type: Easing.InOutQuad }
+                NumberAnimation { from: 0; to: paginationIndicator.parent.width - paginationIndicator.width; duration: 2000 }
+                NumberAnimation { to: 0; from: paginationIndicator.parent.width - paginationIndicator.width; duration: 2000 }
 			}
 		}
 
