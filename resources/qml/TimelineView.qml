@@ -268,7 +268,7 @@ Page {
 			anchors.top: parent.top
 			anchors.left: parent.left
 			anchors.right: parent.right
-			height: 1
+            height: 3
 			color: colors.highlight
 			visible: chat.model && chat.model.paginationInProgress
 			z: 3
